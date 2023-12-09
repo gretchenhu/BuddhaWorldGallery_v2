@@ -1,0 +1,22 @@
+/* Search bar styling */
+
+div{
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: auto; /* Adjust this value to set the desired width */
+  align-items: center;
+  flex-grow: 1;
+  padding: 10px; /* Adds padding inside the search input */
+  margin: 0; /* Adds automatic margins on the sides to center the search bar */
+}
+
+.form-label {
+  color: rgb(103,77,55);
+  font-weight: bold;
+  align-items: center;
+  gap: 10px;
+  margin: 30px 0;
+  display: flex;
+}

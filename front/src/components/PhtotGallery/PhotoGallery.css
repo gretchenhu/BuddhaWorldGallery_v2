@@ -1,0 +1,56 @@
+/* Gallery and photo item styles */
+.background {
+  background-color: rgb(224,218,205);
+
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col-4 {
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+  padding-right: 15px;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
+
+/* Style for each photo container */
+.col-4 div {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Image styling */
+.col-4 img {
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 100%; /* Responsive image width */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 10px;
+}
+
+/* Photo details styling */
+.col-4 div {
+  color: rgb(103,77,55); /* Light rose gold color for text */
+  font-size: 16px;
+}
+
+/* Link styling */
+.col-4 a {
+  text-decoration: none;
+  color: rgb(172, 71, 47); /* Rose gold link color */
+}
+
+.col-4 a:hover {
+  color: rgb(110, 106, 102); /* Lighter rose gold on hover */
+}
+
+/* Button styling */
+.btn.btn-primary.btn-lg{
+  color:whitesmoke;
+}

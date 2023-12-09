@@ -1,0 +1,100 @@
+/* General container styles */
+h2 {
+  color: rgb(103, 77, 55)
+}
+/* Card styles */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(182, 93, 93, 0.1);
+  margin-bottom: 20px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 30px;
+  color: rgb(103, 77, 55);
+}
+
+.card-text {
+  font-size: 20px;
+  color: rgb(103, 77, 55);
+}
+
+/* Button styles */
+.btn {
+  padding: 10px 15px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-secondary {
+  background-color: rbg(163,160,171);
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: rbg(110,106,102);
+}
+
+.container {
+  width: 1280px;
+  margin: auto;
+  padding: 20px;
+}
+/* Comment section styles */
+.comment-section {
+  margin-top: 20px;
+
+}
+
+.comment-section h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+
+}
+
+.comment-section div {
+  margin-bottom: 10px;
+}
+
+.comment-section p {
+  font-size: 14px;
+}
+
+/* Comment form styles */
+.comment-form form {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.comment-form textarea {
+  background-color: rgb(248, 247, 244);
+  color: rgb(53, 42, 28);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-family: inherit; /* Inherits font from container */
+}
+
+.comment-form button {
+  background-color: rgb(172,71,47);
+  color: whitesmoke;
+  margin: 10px;
+  font-size: 16px;
+  border-radius: 2px;
+}
+
+.comment-form button:hover {
+  background-color: rgb(110,106,102);
+}

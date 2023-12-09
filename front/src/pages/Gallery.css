@@ -1,0 +1,20 @@
+/* Heading styles */
+h1 {
+  font-size: 40px;
+  color: rgb(172, 71, 47); /* Brick red heading color */
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: rgb(172, 71, 47); /* Rose gold button background color */
+  color: #fff; /* White button text color */
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.btn-primary:hover {
+  background-color: rgb(110,106,102); /* Lighter rose gold on hover */
+}

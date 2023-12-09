@@ -1,0 +1,93 @@
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(163, 160, 171);
+  width: 100%;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  width: 100%;
+  text-align: left;
+}
+
+.footer-links div {
+  width: 250px;
+  margin: 1rem;
+}
+
+.footer-links_logo {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-links_logo img {
+  width: 118px;
+  height: 30px;
+
+  margin-bottom: 1rem;
+}
+
+.footer-links_contact {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.footer-links_contact h4 {
+  font-size: 14px;
+  line-height: 17px;
+  font-family: var(--font-family);
+  color: rgb(53, 42, 28);
+
+  margin-bottom: 0.9rem;
+}
+
+.footer-links_contact p {
+  font-size: 12px;
+  line-height: 15px;
+  font-family: var(--font-family);
+  color: rgb(53, 42, 28);
+
+  margin: 0.5rem 0;
+  cursor: pointer;
+}
+
+.footer-copyright {
+  margin-top: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.footer-copyright p {
+  font-size: 12px;
+  font-family: var(--font-family);
+  line-height: 15px;
+  color: rgb(53, 42, 28);
+}
+
+.go-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgb(103, 77, 55);
+  color: #fff;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.go-top:hover {
+  background-color: rgb(224, 218, 205);
+}

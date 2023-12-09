@@ -1,0 +1,23 @@
+.about-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.about-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.about-section h2 {
+  color: rgb(53, 42, 28);
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.about-section p {
+  font-size: 1em;
+}
