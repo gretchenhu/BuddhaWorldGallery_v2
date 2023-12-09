@@ -1,6 +1,6 @@
-# BuddhaWorldGallery
+# BuddhaWorldGallery_v2
 
-BuddhaWorldGallery is an online website for art lovers to be able to browse, filter, and upload buddha artifacts across the world. Users will be able to filter artifacts based on the dynasty they like, upload new artifacts to our database, and leave comments about their favorite artifacts.
+BuddhaWorldGallery_v2 was improved upon our previous project BuddhaWorldGallery. It is an online website for art lovers to be able to browse, filter, and upload buddha artifacts across the world. Users will be able to filter artifacts based on the dynasty they like, upload new artifacts to our database, and leave comments about their favorite artifacts.
 
 ## Authors
 
@@ -8,11 +8,11 @@ Huiqin Hu & Xiaolin Liu
 
 ## Project links
 
-Deployed Site: https://buddhaworldgallery-ar4v.onrender.com/
+Deployed Site: 
 
-Walkthrough Video: https://youtu.be/HHam7Jaw86A
+Walkthrough Video:
 
-Slides: https://docs.google.com/presentation/d/e/2PACX-1vSb4RggmRkXw76P1Rx_Kq70ptaCaZxrPqxt4rqLPdXJSP0fls_F35BlBvAqJqE51zVl9NtKloT6a_yX/pub?start=false&loop=false&delayms=3000
+Slides: 
 
 Design Document can be found [here](./design-document.md)
 
@@ -68,7 +68,7 @@ Contact
 
 ## Installation
 
-To set up BuddhaWorldGallery, you will need the following:
+To set up BuddhaWorldGallery2.0, you will need the following:
 Clone the repository and then do below to run backend server:
 
 ```
@@ -114,6 +114,17 @@ mongoimport --db buddhaWorld --collection ListedArtifacts --file db/ListedArtifa
     "react-router-dom": "^6.18.0"
 ```
 
+## Style choices and Color palettes
+Color palette of this website was extracted from the inpiration of this picture:
+![style](./style/Inspiration.png]
+This picture is also an artifacts from Longmen Grottoes, where our displayed artifacts are originally from. By utilizing a color palette inspired by an artifact from the Longmen Grottoes, we hope to weave a visual connection to the cultural and historical context of the artifacts displayed. This choice not only honors the original artistic vision but also subtly acknowledges the narrative of displacement these pieces have endured. The colors will provide a cohesive and aesthetically resonant backdrop that echoes the authenticity and emotional depth of the artifacts, reinforcing the website's purpose of showcasing the heritage and the ongoing story of these important works.
+Our color palette in RGB color value:
+![style](./style/Extracted_color_palette.png]
+
+
 ## License
 
 This project is licensed under the MIT License.
+=======
+# BuddhaWorldGallery_v2
+
