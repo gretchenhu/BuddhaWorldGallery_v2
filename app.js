@@ -47,15 +47,18 @@ app.use(function(req, res, next) {
 
 // Session configuration
 app.use(session({
-  secret: process.env.SESSION_SECRET, // Environment variables!!!!! need to update
+  secret: process.env.SESSION_SECRET, // Environment variable, see .env file
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: process.env.NODE_ENV === "production" }
+  store: sessionStore,
+  cookie: { 
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 1000*60*60*24 } // seconds in 1 day  
 }));
 
 
 // MongoDB connection
-const client = new MongoClient(process.env.MONGODB_URI); // this needs update!!!!!
+const client = new MongoClient(process.env.MONGODB_URI); // Environment variable, see .env file
 let db = null;
 
 async function connectDB() {
