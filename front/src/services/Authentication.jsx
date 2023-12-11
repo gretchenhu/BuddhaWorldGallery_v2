@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:3000/api/auth"; // Adjust the port if your app runs on a different one
+export const API_URL = "http://localhost:3000"; 
 
 // Login Function
 export const loginUser = async (email, password) => {

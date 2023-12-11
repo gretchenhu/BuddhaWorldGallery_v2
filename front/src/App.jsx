@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
 import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/Contact";
+import Register from "./pages/Register";
 import MemberLogin from "./pages/MemberLogin";
 import ArtifactDetail from "./pages/ArtifactDetail";
 import { EditArtifact } from "./pages/EditArtifact";
@@ -24,6 +25,7 @@ export default function App() {
               element={<EditArtifact />}
             />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/MemberLogin" element={<MemberLogin />} />
             <Route path="/aboutus" element={<AboutUs />} />
           </Routes>

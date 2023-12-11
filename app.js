@@ -36,7 +36,7 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Credentials', 'true');
   
   // Intercepts OPTIONS method
-  if ('OPTIONS' === req.method) {
+  if (req.method === "OPTIONS") {
     // Respond with 200
     res.sendStatus(200);
   } else {
@@ -66,7 +66,7 @@ async function connectDB() {
   try {
     await client.connect();
     db = client.db(client.s.options.dbName);
-    console.log("Connected to MongoDB");
+    console.log("Connected to MongoDBssss");
   } catch (error) {
     console.error("Could not connect to MongoDB", error);
   }
@@ -78,20 +78,33 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new LocalStrategy({ usernameField: "email" },
+
   async (email, password, done) => {
+    console.log("RU be here");
     try {
       const usersCollection = db.collection("RegisteredUsers");
       const user = await usersCollection.findOne({ email: email });
+      console.log("User found:", user);
+      console.log(email);
+      
       
       if (!user) {
+        console.log("RU is null");
+      
         return done(null, false, { message: "Incorrect email." });
       }
       const isMatch = await bcrypt.compare(password, user.password);
+      console.log(user.password);
+      
       if (!isMatch) {
+        console.log("RU not a match");
+      
         return done(null, false, { message: "Incorrect password." });
       }
       return done(null, user);
     } catch (error) {
+      console.log("RU scatch");
+      
       return done(error);
     }
   }
@@ -104,7 +117,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   try {
     const usersCollection = db.collection("RegisteredUsers");
-    // Assuming pw is hashed
     const user = await usersCollection.findOne({ _id: new ObjectId(id) });
     done(null, user);
   } catch (error) {

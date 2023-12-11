@@ -23,12 +23,20 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 
 // Logout route
 router.post('/logout', (req, res) => {
-  req.logout();
-  res.json({ message: 'Logged out successfully' });
+  req.logout(function(err) {
+    if (err) { 
+      return next(err); 
+    }
+    res.clearCookie('connect.sid'); // Using Defalt cookie name
+    res.json({ message: 'Logged out successfully' });
+  });
 });
+
+
 
 // Registration route
 router.post('/register', async (req, res) => {
+  console.log('Received request body:', req.body);
   try {
     const { email, password } = req.body;
     if (!email || !password) {

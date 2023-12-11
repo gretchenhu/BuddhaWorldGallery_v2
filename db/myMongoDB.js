@@ -146,6 +146,23 @@ function MyMongoDB() {
     }
   };
 
+  myDB.registerUser = async (userData) => {
+    const { client, db } = connect();
+    const usersCollection = db.collection("RegisteredUsers");
+  
+    try {
+      const result = await usersCollection.insertOne(userData);
+      return result;
+    } catch (error) {
+      console.error("Error registering user:", error);
+      throw error;
+    } finally {
+      console.log("db closing connection");
+      client.close();
+    }
+  };
+  
+
   myDB.closeConnection = async () => {
     if (client.isConnected()) {
       await client.close();
