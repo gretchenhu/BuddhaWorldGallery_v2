@@ -1,56 +1,64 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { DeleteArtifact } from "./DeleteArtifact";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
+import Login from "../components/Login";
+import { UserContext } from "../context/UserContext"; // Update the path as necessary
 import "./artifactDetail.css";
 
 export default function ArtifactDetail() {
   const [artifact, setArtifact] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [showLogin, setShowLogin] = useState(false);
   const { artifactId } = useParams();
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState("");
+  const { user} = useContext(UserContext); 
 
   useEffect(() => {
-    // fetch artifacts data
-    async function fetchArtifact() {
+    // Fetch artifact and comments data
+    const fetchArtifactAndComments = async () => {
       try {
-        const response = await fetch(`/api/buddha/id/${artifactId}`);
-        if (response.ok) {
-          const data = await response.json();
-          setArtifact(data);
+        // Fetch artifact data
+        const artifactResponse = await fetch(`/api/buddha/id/${artifactId}`);
+        if (artifactResponse.ok) {
+          const artifactData = await artifactResponse.json();
+          setArtifact(artifactData);
         } else {
           console.error("Artifact not found");
         }
-      } catch (error) {
-        console.error("Error fetching artifact:", error);
-      }
-    }
-    fetchArtifact();
 
-    //  fetch comment data
-    async function fetchComments() {
-      try {
-        const response = await fetch(`/api/buddha/id/${artifactId}/comments`);
-        if (response.ok) {
-          const data = await response.json();
-          setComments(data);
+        // Fetch comments data
+        const commentsResponse = await fetch(`/api/buddha/id/${artifactId}/comments`);
+        if (commentsResponse.ok) {
+          const commentsData = await commentsResponse.json();
+          setComments(commentsData);
         }
       } catch (error) {
-        console.error("Error fetching comments:", error);
+        console.error("Error fetching data:", error);
       }
-    }
-    fetchComments();
+    };
+
+    fetchArtifactAndComments();
   }, [artifactId]);
 
-  if (!artifact) {
-    return <div>Loading...</div>;
-  }
+  // Handlers for login modal
+  const handleLoginClose = () => {
+    setShowLogin(false);
+  };
 
+  // Handlers for comment submission
   const submitComment = async (e) => {
     e.preventDefault();
+    if (!user) {
+      setShowLogin(true);
+      return;
+    }
+    if (!artifact) {
+    return <div>Loading...</div>;
+    }
     if (newComment && artifactId) {
       try {
         const response = await fetch(`/api/buddha/id/${artifactId}/comments`, {
@@ -134,77 +142,88 @@ export default function ArtifactDetail() {
   return (
     <div className="container my-5">
       <Navbar />
-      <div className="card">
-        <img
-          src={artifact.image}
-          alt={artifact.name}
-          className="card-img-top"
-        />
-        <div className="card-body">
-          <h1 className="card-title">{artifact.name}</h1>
-          <p className="card-text">{artifact.dynasty}</p>
-          <p className="card-text">{artifact.museum}</p>
-
-          <div className="card-btn">
-            <Link
-              to={`/buddha/edit/id/${artifactId}`}
-              className="btn btn-secondary mx-2"
-            >
-              Edit
-            </Link>
-            <DeleteArtifact artifactId={artifactId} />
-          </div>
-          <section className="comment-section">
-            <h2>Comments</h2>
-            {comments.map((comment) => (
-              <div key={comment._id}>
-                {editingCommentId === comment._id ? (
-                  <>
-                    <textarea
-                      value={editedCommentText}
-                      onChange={(e) => setEditedCommentText(e.target.value)}
-                      placeholder="Edit your comment here"
-                      required
-                    />
-                    <button onClick={() => updateComment(comment._id)}>
-                      Update Comment
-                    </button>
-                    <button onClick={cancelEditingComment}>Cancel</button>
-                  </>
-                ) : (
-                  <>
-                    <p>{comment.text}</p>
-                    <button onClick={() => deleteComment(comment._id)}>
-                      Delete Comment
-                    </button>
-                    <button
-                      onClick={() =>
-                        startEditingComment(comment._id, comment.text)
-                      }
-                    >
-                      Edit Comment
-                    </button>
-                  </>
-                )}
-              </div>
-            ))}
-            <div className="comment-form">
-              <form>
-                <textarea
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                  placeholder="Write your comment here..."
-                  required
-                />
-                <button onClick={(e) => submitComment(e)}>
-                  Submit Comment
-                </button>
-              </form>
+      {artifact ? (
+        <div className="card">
+          <img
+            src={artifact.image}
+            alt={artifact.name}
+            className="card-img-top"
+          />
+          <div className="card-body">
+            <h1 className="card-title">{artifact.name}</h1>
+            <p className="card-text">{artifact.dynasty}</p>
+            <p className="card-text">{artifact.museum}</p>
+  
+            <div className="card-btn">
+              <Link
+                to={`/buddha/edit/id/${artifactId}`}
+                className="btn btn-secondary mx-2"
+              >
+                Edit
+              </Link>
+              <DeleteArtifact artifactId={artifactId} />
             </div>
-          </section>
+  
+            <section className="comment-section">
+              <h2>Comments</h2>
+              {comments.map((comment) => (
+                <div key={comment._id}>
+                  {editingCommentId === comment._id ? (
+                    <>
+                      <textarea
+                        value={editedCommentText}
+                        onChange={(e) => setEditedCommentText(e.target.value)}
+                        placeholder="Edit your comment here"
+                        required
+                      />
+                      <button onClick={() => updateComment(comment._id)}>
+                        Update Comment
+                      </button>
+                      <button onClick={cancelEditingComment}>Cancel</button>
+                    </>
+                  ) : (
+                    <>
+                      <p>{comment.text}</p>
+                      <button onClick={() => deleteComment(comment._id)}>
+                        Delete Comment
+                      </button>
+                      <button
+                        onClick={() =>
+                          startEditingComment(comment._id, comment.text)
+                        }
+                      >
+                        Edit Comment
+                      </button>
+                    </>
+                  )}
+                </div>
+              ))}
+              <div className="comment-form">
+                <form onSubmit={submitComment}>
+                  <textarea
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    placeholder="Write your comment here..."
+                    required
+                  />
+                  <button type="submit">Submit Comment</button>
+                </form>
+              </div>
+            </section>
+          </div>
         </div>
-      </div>
-      <Footer/>
+      ) : (
+        <div>Loading artifact details...</div>
+      )}
+  
+      {showLogin && (
+        <>
+          <div className="backdrop" onClick={handleLoginClose}></div>
+          <Login onClose={handleLoginClose} />
+        </>
+      )}
+  
+      <Footer />
     </div>
   );
 }

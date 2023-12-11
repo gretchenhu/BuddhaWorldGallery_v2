@@ -76,6 +76,7 @@ npm install express-session
 npm install passport
 npm install passport-local
 npm install bcryptjs
+npm install connect-mongo
 ```
 
 Install frontend dependencies:
@@ -110,6 +111,7 @@ mongoimport --db buddhaWorld --collection ListedArtifacts --file db/ListedArtifa
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.2",
+    "connect-mongo": "^5.1.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.3.1",

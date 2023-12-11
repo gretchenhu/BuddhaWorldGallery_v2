@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { fileURLToPath } from "url";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import bcrypt from "bcryptjs";
@@ -50,10 +51,10 @@ app.use(session({
   secret: process.env.SESSION_SECRET, // Environment variable, see .env file
   resave: false,
   saveUninitialized: true,
-  store: sessionStore,
+  store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
   cookie: { 
     secure: process.env.NODE_ENV === "production",
-    maxAge: 1000*60*60*24 } // seconds in 1 day  
+    maxAge: 1000*60*60*24 } // cookie expires after 1 day  
 }));
 
 
