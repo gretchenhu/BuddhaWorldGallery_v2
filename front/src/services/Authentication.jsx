@@ -1,6 +1,6 @@
 export const API_URL = "http://localhost:3000"; 
 
-// Login Function
+// Login Function line 6
 export const loginUser = async (email, password) => {
   try {
     const response = await fetch(`${API_URL}/login`, {
@@ -11,12 +11,17 @@ export const loginUser = async (email, password) => {
       },
       body: JSON.stringify({ email, password }),
     });
+
+    const data = await response.json();
     if (!response.ok) {
-      throw new Error("Login failed");
+      throw new Error(data.message || "Login failed");
     }
-    return await response.json(); // The server should set a cookie upon successful login
+    return data; // The server should set a cookie upon successful login
   } catch (error) {
-    console.error("Login failed:", error);
+    if (error.name === "SyntaxError"){
+      throw new Error("Response from server was not in expected JSON format")
+    } else 
+    //console.error("Login failed from authen:", error);
     throw error;
   }
 };
@@ -38,7 +43,7 @@ export const logoutUser = async () => {
 };
 
 // Registration Function
-export const registerUser = async (userData) => {
+export const registerUser = async (email, password) => {
   try {
     const response = await fetch(`${API_URL}/register`, {
       method: "POST",
@@ -46,7 +51,7 @@ export const registerUser = async (userData) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify({email, password}),
     });
     if (!response.ok) {
       throw new Error("Registration failed");
@@ -70,7 +75,7 @@ export const checkAuthStatus = async () => {
     }
     return await response.json(); // The server should respond with user info if a session exists
   } catch (error) {
-    console.error("Checking authentication status failed:", error);
+    console.error("Checking authentication status failed", error);
     // Handle error
   }
 };

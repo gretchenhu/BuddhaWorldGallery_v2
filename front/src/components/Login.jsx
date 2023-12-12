@@ -1,12 +1,13 @@
 // Login.jsx
-import { useState, useContext } from 'react';
+import { useState, useContext } from "react";
 import { loginUser } from "../services/Authentication"; 
 import { UserContext } from "../context/UserContext"; 
-import { PropTypes } from 'prop-types';
+import { PropTypes } from "prop-types";
 
 const Login = ({ onClose }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("")
   const { setUser } = useContext(UserContext); // Use setUser to update global user state
 
   const handleLogin = async (event) => {
@@ -19,7 +20,8 @@ const Login = ({ onClose }) => {
       }
     } catch (error) {
       // Handle login errors (e.g., show an error message)
-      console.error('Login failed:', error);
+      //console.error('Login failed from login file:', error);
+      setLoginError("Login failed. Please check your credentials.");
     }
   };
 
@@ -50,6 +52,7 @@ const Login = ({ onClose }) => {
               required
             />
           </div>
+          {loginError && <div className="login-error">{loginError}</div>}
           <button type="submit">Login</button>
         </form>
       </div>

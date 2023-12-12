@@ -10,6 +10,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import bcrypt from "bcryptjs";
 import { MongoClient, ObjectId } from "mongodb";
+import myDB from "./db/myMongoDB.js";
 import { config } from "dotenv";
 
 import indexRouter from "./routes/index.js";
@@ -57,67 +58,42 @@ app.use(session({
     maxAge: 1000*60*60*24 } // cookie expires after 1 day  
 }));
 
-
-// MongoDB connection
-const client = new MongoClient(process.env.MONGODB_URI); // Environment variable, see .env file
-let db = null;
-
-async function connectDB() {
-  try {
-    await client.connect();
-    db = client.db(client.s.options.dbName);
-    console.log("Connected to MongoDBssss");
-  } catch (error) {
-    console.error("Could not connect to MongoDB", error);
-  }
-}
-connectDB();
-
 // Passport configuration
 app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new LocalStrategy({ usernameField: "email" },
-
+  //userinput email, used to find user in db, and to match with password  
   async (email, password, done) => {
-    console.log("RU be here");
     try {
-      const usersCollection = db.collection("RegisteredUsers");
-      const user = await usersCollection.findOne({ email: email });
-      console.log("User found:", user);
-      console.log(email);
-      
-      
-      if (!user) {
-        console.log("RU is null");
-      
-        return done(null, false, { message: "Incorrect email." });
-      }
+      const user = await myDB.getUserByEmail(email);
+      console.log("R U here, email entered is", email);
+      console.log("Authenticating User is", user);
+      if (!user){
+        return done (null, false, { message: "Email does not exist."});
+    }
+    // should i call the getUserByEmail to return the user in db?
       const isMatch = await bcrypt.compare(password, user.password);
-      console.log(user.password);
-      
+      console.log("Input password is", password, "and user password in our db is", user.password);
+      console.log("pw match?",isMatch);
       if (!isMatch) {
-        console.log("RU not a match");
-      
         return done(null, false, { message: "Incorrect password." });
       }
-      return done(null, user);
+      return done (null, user);
     } catch (error) {
-      console.log("RU scatch");
-      
-      return done(error);
-    }
-  }
+      console.error("Authentication error:", error);
+     return done(error);
+  }}
 ));
 
 passport.serializeUser((user, done) => {
   done(null, user._id.toString()); // MongoDB _id is an ObjectID
 });
 
-passport.deserializeUser(async (id, done) => {
+passport.deserializeUser(async (user, done) => {
   try {
     const usersCollection = db.collection("RegisteredUsers");
-    const user = await usersCollection.findOne({ _id: new ObjectId(id) });
+    const user = await usersCollection.findOne({ email: email });
     done(null, user);
   } catch (error) {
     done(error, null);

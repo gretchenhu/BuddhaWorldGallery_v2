@@ -146,16 +146,34 @@ function MyMongoDB() {
     }
   };
 
-  myDB.registerUser = async (userData) => {
+  myDB.createUser = async (newUser) => {
     const { client, db } = connect();
     const usersCollection = db.collection("RegisteredUsers");
   
     try {
-      const result = await usersCollection.insertOne(userData);
+      const hashedPassword = await bcrypt.hash(newUser.password, 10);
+      const userWithHashedPassword = { ...newUser, password: hashedPassword };
+      const result = await usersCollection.insertOne(userWithHashedPassword);
+      console.log(result);
       return result;
-    } catch (error) {
-      console.error("Error registering user:", error);
-      throw error;
+    } finally {
+      console.log("db closing connection");
+      client.close();
+    }
+  };
+
+  // Give me a way to 
+  myDB.getUserByEmail = async (email) => {
+    const { client, db } = connect();
+    const usersCollection = db.collection("RegisteredUsers");
+
+    try {
+      const filter = { email: email };
+      const user = await usersCollection.findOne(filter);
+      console.log("Finding user with email", user);
+      return user;
+      //console.log(email);
+      //console.log(await usersCollection.find({}).toArray(filter));
     } finally {
       console.log("db closing connection");
       client.close();

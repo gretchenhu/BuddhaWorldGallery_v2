@@ -99,6 +99,19 @@ router.get("/api/buddha/id/:artifactId/comments", async (req, res) => {
   }
 });
 
+//getUserByEmail
+router.get("/api/buddha/id/:email", async (req, res) => {
+  try {
+    const email = req.params.email;
+    const user = await myDB.getUserByEmail(email);
+    console.log(user);
+    res.json(user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Unable to find user"});
+  }
+})
+
 //deleteComment
 router.delete("/api/buddha/comments/:commentId", async (req, res) => {
   try {
