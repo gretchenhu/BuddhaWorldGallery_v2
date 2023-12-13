@@ -97,19 +97,14 @@ To set up BuddhaWorldGallery2.0, you will need the following:
 Clone the repository, then enter into root folder and run below commands to install dependencies:
 
 ```
-npm install nodemon
-npm install express-session
-npm install passport
-npm install passport-local
-npm install bcryptjs
-npm install connect-mongo
+npm install
 ```
 
 Install frontend dependencies:
 
 ```
 cd front
-npm install @vitejs/plugin-react
+npm install
 ```
 
 and in the same front folder to run frontend server:
