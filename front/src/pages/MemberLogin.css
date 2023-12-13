@@ -1,0 +1,19 @@
+/* MemberLogin.css */
+.member-login-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Set the height to 100% of the viewport height */
+}
+
+.navbar-section,
+.login-section,
+.footer-section {
+  flex: 1; /* Distribute remaining space equally among sections */
+  padding: 20px; /* Add some padding for spacing */
+}
+
+.member-login-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

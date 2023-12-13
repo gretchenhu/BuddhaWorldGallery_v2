@@ -1,21 +1,27 @@
 // MemberLogin.jsx
-import Login from '../components/Login';
+import React from "react";
+import Login from "../components/Login";
 import "./MemberLogin.css";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 
 const MemberLogin = () => {
-
   const handleSuccessfulLogin = () => {
     // Redirect to the home page cus root path
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   return (
-    <div>
-     <Navbar />
-      <Login onSuccessfulLogin={handleSuccessfulLogin} />
-      <Footer/>
+    <div className="member-login-container">
+      <section className="navbar-section">
+        <Navbar />
+      </section>
+      <section className="login-section">
+        <Login onSuccessfulLogin={handleSuccessfulLogin} />
+      </section>
+      <section className="footer-section">
+        <Footer />
+      </section>
     </div>
   );
 };
