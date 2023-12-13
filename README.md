@@ -52,6 +52,11 @@ Our color palette in RGB color value:
 
 ![style](./style/Extracted_color_palette.png)
 
+## Lighthouse Accessibility Score
+
+The website passed lighthouse accessibility test and received a 100 score.
+![screenshots](./screenshots/lighthouse.jpg)
+
 ## Screenshots
 
 Main page: gallery
