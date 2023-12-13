@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import "./footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -67,7 +66,7 @@ const Footer = () => {
           </p>
         </div>
         <div className="footer-links_contact">
-          <h4>Get in touch</h4>
+          <h4>Get in touch ⬇</h4>
           <p>600 California St, San Francisco, California</p>
           <p>866-866-7866</p>
           <p>info@buddhaworldgallery.com</p>
