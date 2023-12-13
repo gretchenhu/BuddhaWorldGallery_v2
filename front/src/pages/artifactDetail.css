@@ -28,12 +28,13 @@ h2 {
 }
 
 /* Button styles */
-.btn {
+button {
   padding: 10px 15px;
   border-radius: 4px;
   text-transform: uppercase;
   font-weight: bold;
   transition: background-color 0.3s;
+  margin: 0 10px 0 10px;
 }
 
 .btn-secondary {
