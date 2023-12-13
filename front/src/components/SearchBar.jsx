@@ -12,6 +12,9 @@ const dynasties = [
   "Xia",
   "Song",
   "Jin",
+  "Qin",
+  "Qing",
+  "Ming",
 ];
 
 export default function SearchBar({ query, setQuery }) {
