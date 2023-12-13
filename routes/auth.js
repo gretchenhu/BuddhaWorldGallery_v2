@@ -7,7 +7,6 @@ const router = express.Router();
 
 router.post("/login", function(req, res, next) {
   const { username, password, adminSecretKey } = req.body;
-  console.log("1.adminSecretKey is", adminSecretKey, "env key is", process.env.ADMIN_SECRET_KEY);
 
   // Check if it's an admin login attempt
   if (adminSecretKey) {

@@ -1,36 +1,45 @@
-import { useContext } from "react";
+// current changes
+import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import Login from "../components/Login";
-import "./Admin.css";
-import Navbar from "../components/navbar/Navbar";
-import Footer from "../components/footer/Footer";
+import CreateArtifact from "./CreateArtifact";
+import EditArtifact from "./EditArtifact";
+import DeleteArtifact from "./DeleteArtifact";
 
 const AdminPage = () => {
-  const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
+    const [showAdminLogin, setShowAdminLogin] = useState(true); // initially show admin login
 
-  const handleSuccessfulLogin = () => {
-    // Redirect to the admin page
-    window.location.href = "/admin";
-  };
+    useEffect(() => {
+        if (user && user.role === "admin") {
+            setShowAdminLogin(false); // hide login form if user is already an admin
+        }
+    }, [user]);
 
-  return (
-    <div className="admin-page-container">
-      <Navbar />
-      <div className="admin-content-container">
-        {user && user.role === "admin" ? (
-          // If already logged in as admin, show admin content
-          <div>Admin Content or Redirect</div>
-        ) : (
-          // If not logged in as admin, show the login form with isAdminLogin
-          <Login
-            onSuccessfulLogin={handleSuccessfulLogin}
-            isAdminLogin={true}
-          />
-        )}
-      </div>
-      <Footer />
-    </div>
-  );
+    const handleAdminLoginSuccess = (adminUser) => {
+        setShowAdminLogin(false);
+        setUser(adminUser); // Update user context with admin user
+    };
+
+    if (showAdminLogin) {
+        return (
+            <Login 
+                onClose={() => setShowAdminLogin(false)} 
+                isAdminLogin={true}
+                onSuccessfulLogin={handleAdminLoginSuccess}
+            />
+        );
+    }
+
+    return (
+        <div>
+            <h1>Admin Dashboard</h1>
+            {/* Admin functionalities */}
+            <CreateArtifact />
+            <EditArtifact />
+            <DeleteArtifact />
+        </div>
+    );
 };
 
 export default AdminPage;

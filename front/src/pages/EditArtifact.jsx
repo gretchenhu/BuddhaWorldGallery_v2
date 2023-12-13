@@ -4,7 +4,7 @@ import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import "./editArtifact.css";
 
-export function EditArtifact() {
+export default function EditArtifact() {
   const [artifactData, setArtifact] = useState({
     dynasty: "",
     image: "",

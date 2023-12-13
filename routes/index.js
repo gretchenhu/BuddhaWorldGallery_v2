@@ -73,6 +73,29 @@ router.delete("/api/buddha/id/:id", async function (req, res) {
 });
 
 //createComment
+
+router.post("/api/buddha/id/:artifactId/comments", async (req, res) => {
+  try {
+    const artifactId = req.params.artifactId;
+    const { text } = req.body;
+    const username = req.user.username; // Retrieve the username from the session or token
+
+    // Ensure that the username is available
+    if (!username) {
+      return res.status(403).json({ error: "User not logged in" });
+    }
+
+    const comment = { text, artifactId, username };
+    console.log(comment);
+    const result = await myDB.createComment(comment);
+    res.status(201).json(result);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Unable to create Comment" });
+  }
+}); 
+
+/*
 router.post("/api/buddha/id/:artifactId/comments", async (req, res) => {
   try {
     const artifactId = req.params.artifactId;
@@ -84,7 +107,7 @@ router.post("/api/buddha/id/:artifactId/comments", async (req, res) => {
     console.log(err);
     res.status(500).json({ error: "Unable to create Comment" });
   }
-});
+}); */
 
 //getComments
 router.get("/api/buddha/id/:artifactId/comments", async (req, res) => {

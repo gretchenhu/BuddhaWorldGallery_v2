@@ -7,7 +7,7 @@ import Register from "./pages/Register";
 import MemberLogin from "./pages/MemberLogin";
 import Admin from "./pages/Admin";
 import ArtifactDetail from "./pages/ArtifactDetail";
-import { EditArtifact } from "./pages/EditArtifact";
+import EditArtifact from "./pages/EditArtifact";
 import CreateArtifact from "./pages/CreateArtifact";
 import GalleryPage from "./pages/Gallery";
 import "./App.css";

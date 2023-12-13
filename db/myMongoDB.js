@@ -86,12 +86,13 @@ function MyMongoDB() {
     }
   };
 
-  myDB.createComment = async (comment) => {
+  myDB.createComment = async (comment, username) => {
     const { client, db } = connect();
     const commentsCollection = db.collection("Comments");
 
     try {
-      const result = await commentsCollection.insertOne(comment);
+      const commentWithUser = { ...comment, username }; // Add the username to the comment object
+      const result = await commentsCollection.insertOne(commentWithUser);
       console.log(result);
       return result;
     } finally {
