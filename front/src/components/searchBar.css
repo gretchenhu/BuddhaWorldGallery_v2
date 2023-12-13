@@ -1,6 +1,6 @@
 /* Search bar styling */
 
-div{
+div {
   margin-bottom: 20px;
 }
 
@@ -13,7 +13,7 @@ div{
 }
 
 .form-label {
-  color: rgb(103,77,55);
+  color: rgb(103, 77, 55);
   font-weight: bold;
   align-items: center;
   gap: 10px;

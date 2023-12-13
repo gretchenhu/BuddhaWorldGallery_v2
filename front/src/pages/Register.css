@@ -1,0 +1,41 @@
+form {
+  max-width: 400px;
+  margin: auto;
+  padding: 50px;
+  border: 1px solid rgb(224, 218, 205);
+  border-radius: 8px;
+  background-color: rgb(224, 218, 205);
+  font-family: "Lora", serif;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+button {
+  background-color: rgb(172, 71, 47);
+  color: rgb(172, 71, 47);
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: rgb(103, 77, 55);
+}
