@@ -14,6 +14,12 @@ function PhotosGallery({ photos }) {
             <div>{photo.name}</div>
             <div>{photo.dynasty} Dynasty</div>
             <div>{photo.museum}</div>
+            <Link
+              to={`/buddha/id/${photo._id}`}
+              className="btn btn-primary btn-lg"
+            >
+              detail page
+            </Link>
           </Link>
         </div>
       );
