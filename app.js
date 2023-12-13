@@ -41,11 +41,12 @@ const myStrategy = new LocalStrategy(async function verify(
     }
 
     console.log("found user", user);
+    const salt = user.salt
 
     // Computes the hash password from the user input
     crypto.pbkdf2(
       password,
-      Buffer.from(user.salt, "hex"),
+      salt,
       310000,
       32,
       "sha256",

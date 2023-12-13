@@ -179,7 +179,7 @@ function MyMongoDB() {
       console.log("db closing connection");
       client.close();
     }
-  };
+  }; R
   */
 
   myDB.insertUser = async function (user) {
@@ -200,7 +200,7 @@ function MyMongoDB() {
 
     console.log("get User", username);
     try {
-      return await db.collection("users").findOne({ username });
+      return await db.collection("RegisteredUsers").findOne({ username });
     } finally {
       await client.close();
     }

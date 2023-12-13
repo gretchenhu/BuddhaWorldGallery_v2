@@ -1,5 +1,6 @@
 // Login.jsx
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom"
 import { loginUser } from "../services/Authentication"; 
 import { UserContext } from "../context/UserContext"; 
 import { PropTypes } from "prop-types";
@@ -9,12 +10,15 @@ const Login = ({ onClose }) => {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("")
   const { setUser } = useContext(UserContext); // Use setUser to update global user state
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
       const user = await loginUser(userName, password);
+      console.log("Registration successful:", user);
       setUser(user); // Update the global user context
+      navigate("/"); // GalleryPg was rendered as root path
       if (onClose) {
         onClose(); // Close the login modal
       }
@@ -51,6 +55,7 @@ const Login = ({ onClose }) => {
               required
             />
           </div>
+          
           {loginError && <div className="login-error">{loginError}</div>}
           <button type="submit">Login</button>
         </form>

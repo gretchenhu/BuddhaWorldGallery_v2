@@ -18,7 +18,7 @@ const handleRegister = async (event) => {
     navigate("/MemberLogin");
     // naviagate to login pg post-registration
   } catch (error) {
-    console.error('Registration failed:', error);
+    console.error("Registration failed:", error);
     // Handle registration errors (e.g., display an error message)
   }
 };

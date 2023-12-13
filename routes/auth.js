@@ -5,13 +5,19 @@ import myDB from "../db/myMongoDB.js";
 
 const router = express.Router();
 
-router.post(
-  "/login/password", //deleted api/
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-  })
-);
+router.post("/login", function(req, res, next) {
+  passport.authenticate("local", function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { 
+      return res.status(401).json({ message: "Authentication failed." });
+    }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.json({ message: "Authentication successful.", user });
+    });
+  })(req, res, next);
+});
+
 
 router.post("/logout", function (req, res, next) { // deleted api/
   req.logout(function (err) {
@@ -36,37 +42,43 @@ router.get("/getUser", function (req, res) {
   res.status(200).json({ username: req.user?.username });
 });
 
-router.post("/register", async function (req, res, next) {
-  console.log("**** register", req.body);
-
-  const user = await myDB.getUserByUsername(req.body.username);
-  if (user) {
-    return res.status(400).json({ ok: false, msg: "Username already exists" });
+router.post("/register", async (req, res) => {
+  const { username, password } = req.body;
+  
+  // Check if the user already exists
+  try {
+      const existingUser = await myDB.getUserByUsername(username);
+      if (existingUser) {
+          return res.status(409).json({ message: "Username already exists" });
+      }
+  } catch (error) {
+      return res.status(500).json({ message: "Error checking existing user", error: error.message });
   }
 
-  var salt = crypto.randomBytes(16);
-  crypto.pbkdf2(
-    req.body.password,
-    salt,
-    310000,
-    32,
-    "sha256",
-    async function (err, hashedPassword) {
+  // Generate a salt and hash the password
+  const salt = crypto.randomBytes(16).toString('hex');
+  crypto.pbkdf2(password, salt, 310000, 32, 'sha256', async (err, hashedPassword) => {
       if (err) {
-        return next(err);
+          // Handle error during password hashing
+          return res.status(500).json({ message: "Error hashing password", error: err.message });
       }
 
-      const insertResponse = await myDB.insertUser({
-        username: req.body.username,
-        hashedPassword: hashedPassword.toString("hex"),
-        salt: salt.toString("hex"),
-      });
+      // Construct the new user object
+      const newUser = {
+          username,
+          hashedPassword: hashedPassword.toString('hex'),
+          salt
+      };
 
-      console.log("inserted new user", insertResponse);
-
-      res.status(200).json({ ok: true, msg: "Signed up " });
-    }
-  );
+      // Insert the new user into the database
+      try {
+          await myDB.insertUser(newUser);
+          res.status(200).json({ message: "User registered successfully" });
+      } catch (dbError) {
+          // Handle database insertion error
+          res.status(500).json({ message: "Error registering new user", error: dbError.message });
+      }
+  });
 });
 
 export default router;
