@@ -6,7 +6,7 @@
   "author": "Xiaolin Liu, Huiqin Hu",
   "license": "MIT",
   "scripts": {
-    "preinstall": "cd front && npm install @vitejs/plugin-react && npm run dev",
+    "preinstall": "cd front && npm i && npm run build",
     "start": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www.js",
     "lint": "eslint . --ext .js,.jsx",
     "format": "prettier --write ."
