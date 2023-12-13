@@ -99,11 +99,11 @@ router.get("/api/buddha/id/:artifactId/comments", async (req, res) => {
   }
 });
 
-//getUserByEmail
-router.get("/api/buddha/id/:email", async (req, res) => {
+//getUserByUsername
+router.get("/api/buddha/id/:username", async (req, res) => {
   try {
-    const email = req.params.email;
-    const user = await myDB.getUserByEmail(email);
+    const username = req.params.username;
+    const user = await myDB.getUserByUsername(username);
     console.log(user);
     res.json(user);
   } catch (err) {

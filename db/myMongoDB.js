@@ -146,6 +146,7 @@ function MyMongoDB() {
     }
   };
 
+  /*
   myDB.createUser = async (newUser) => {
     const { client, db } = connect();
     const usersCollection = db.collection("RegisteredUsers");
@@ -178,18 +179,41 @@ function MyMongoDB() {
       console.log("db closing connection");
       client.close();
     }
-  };
-  
+  }; R
+  */
 
-  myDB.closeConnection = async () => {
-    if (client.isConnected()) {
+  myDB.insertUser = async function (user) {
+    const { client, db } = connect();
+
+    console.log("insert User", user.username);
+    try {
+      const response = await db.collection("RegisteredUsers").insertOne(user);
+
+      return response;
+    } finally {
       await client.close();
     }
   };
 
-  myDB.connect = connect;
+  myDB.getUserByUsername = async function (username) {
+    const { client, db } = connect();
+
+    console.log("get User", username);
+    try {
+      return await db.collection("RegisteredUsers").findOne({ username });
+    } finally {
+      await client.close();
+    }
+  };
   return myDB;
 }
+
+/*  myDB.closeConnection = async () => {
+    if (client.isConnected()) {
+      await client.close();
+    }
+  };
+*/
 
 const myDB = MyMongoDB();
 
