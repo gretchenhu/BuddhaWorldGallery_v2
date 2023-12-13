@@ -11,7 +11,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  right:0;
+  right: 0;
   background-color: rgb(103, 77, 55);
   color: whitesmoke;
   display: flex;
@@ -20,10 +20,15 @@ body {
   gap: 2rem;
   padding: 0 1rem;
   z-index: 1000;
+  font-family: "Garamond", serif;
+  height: 100px;
 }
 
 .site-title {
   font-size: 2rem;
+  margin: 0;
+  padding: 0;
+  height: 4px;
 }
 
 .nav ul {
@@ -41,10 +46,11 @@ body {
   display: flex;
   align-items: center;
   padding: 0.25rem;
+  font-family: "Lora", serif;
 }
 
 .nav a:hover {
-  color:rgb(172,71,47);
+  color: rgb(172, 71, 47);
 }
 
 .nav li.active {
@@ -52,6 +58,13 @@ body {
 }
 
 .nav li:hover {
-  background-color: #f0e2e2;
+  background-color: rgb(224, 218, 205);
   text-decoration-color: whitesmoke;
+}
+
+.logo {
+  margin: 0;
+  border: 0;
+  margin-top: 0px;
+  height: 20%;
 }

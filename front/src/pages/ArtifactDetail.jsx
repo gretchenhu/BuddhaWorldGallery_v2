@@ -15,7 +15,7 @@ export default function ArtifactDetail() {
   const { artifactId } = useParams();
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState("");
-  const { user} = useContext(UserContext); 
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     // Fetch artifact and comments data
@@ -31,7 +31,9 @@ export default function ArtifactDetail() {
         }
 
         // Fetch comments data
-        const commentsResponse = await fetch(`/api/buddha/id/${artifactId}/comments`);
+        const commentsResponse = await fetch(
+          `/api/buddha/id/${artifactId}/comments`
+        );
         if (commentsResponse.ok) {
           const commentsData = await commentsResponse.json();
           setComments(commentsData);
@@ -57,7 +59,7 @@ export default function ArtifactDetail() {
       return;
     }
     if (!artifact) {
-    return <div>Loading...</div>;
+      return <div>Loading...</div>;
     }
     if (newComment && artifactId) {
       try {
@@ -143,39 +145,48 @@ export default function ArtifactDetail() {
     <div className="container my-5">
       <Navbar />
       {artifact ? (
-        <div className="card">
-          <img
-            src={artifact.image}
-            alt={artifact.name}
-            className="card-img-top"
-          />
-          <div className="card-body">
-            <h1 className="card-title">{artifact.name}</h1>
-            <p className="card-text">{artifact.dynasty}</p>
-            <p className="card-text">{artifact.museum}</p>
-  
-            <div className="card-btn">
-              <Link
-                to={`/buddha/edit/id/${artifactId}`}
-                className="btn btn-secondary mx-2"
-              >
-                Edit
-              </Link>
-              <DeleteArtifact artifactId={artifactId} />
+        <div className="row">
+          <div className="col-md-6">
+            <img
+              src={artifact.image}
+              alt={artifact.name}
+              className="card-img-top"
+            />
+          </div>
+          <div className="col-md-6">
+            <div className="card-body">
+              <h1 className="card-title">{artifact.name}</h1>
+              <p className="card-text">{artifact.dynasty}</p>
+              <p className="card-text">{artifact.museum}</p>
+
+              <div className="card-btn">
+                <Link
+                  to={`/buddha/edit/id/${artifactId}`}
+                  className="btn btn-secondary mx-2"
+                >
+                  Edit
+                </Link>
+                <DeleteArtifact artifactId={artifactId} />
+              </div>
             </div>
-  
+
             <section className="comment-section">
               <h2>Comments</h2>
+              <div className="comment-form">
+                <form onSubmit={submitComment}>
+                  <textarea
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    placeholder="Write your comment here..."
+                    required
+                  />
+                  <button type="submit">Submit Comment</button>
+                </form>
+              </div>
               {comments.map((comment) => (
                 <div key={comment._id}>
                   {editingCommentId === comment._id ? (
                     <>
-                      <textarea
-                        value={editedCommentText}
-                        onChange={(e) => setEditedCommentText(e.target.value)}
-                        placeholder="Edit your comment here"
-                        required
-                      />
                       <button onClick={() => updateComment(comment._id)}>
                         Update Comment
                       </button>
@@ -198,31 +209,20 @@ export default function ArtifactDetail() {
                   )}
                 </div>
               ))}
-              <div className="comment-form">
-                <form onSubmit={submitComment}>
-                  <textarea
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Write your comment here..."
-                    required
-                  />
-                  <button type="submit">Submit Comment</button>
-                </form>
-              </div>
             </section>
           </div>
         </div>
       ) : (
         <div>Loading artifact details...</div>
       )}
-  
+
       {showLogin && (
         <>
           <div className="backdrop" onClick={handleLoginClose}></div>
           <Login onClose={handleLoginClose} />
         </>
       )}
-  
+
       <Footer />
     </div>
   );

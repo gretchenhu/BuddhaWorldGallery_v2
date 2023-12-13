@@ -1,9 +1,10 @@
-import { useContext } from 'react';
+import { useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
-import { UserContext } from "../../context/UserContext"; 
-import { logoutUser } from '../../services/Authentication';
+import { UserContext } from "../../context/UserContext";
+import { logoutUser } from "../../services/Authentication";
 import "./navbar.css";
+import logo from "../../assets/buddha_logo.png";
 
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
@@ -20,16 +21,16 @@ export default function Navbar() {
   return (
     <nav className="nav">
       <Link to="/" className="site-title">
-        BWG
+        <img src={logo} alt="BWG Logo" className="logo" />
       </Link>
       <ul>
         <CustomLink to="/">Gallery</CustomLink>
         {user ? (
-          <li onClick={handleLogout}>Logout</li> // Logout link for logged-in users
+          <CustomLink onClick={handleLogout}>Logout</CustomLink> // Logout link for logged-in users
         ) : (
           <CustomLink to="/MemberLogin">Member Login</CustomLink> // Member Login link for guests
         )}
-        <CustomLink to="/Register">Register</CustomLink> 
+        <CustomLink to="/Register">Register</CustomLink>
         <CustomLink to="/AboutUs">About Us</CustomLink>
         <CustomLink to="/Contact">Contact</CustomLink>
       </ul>
