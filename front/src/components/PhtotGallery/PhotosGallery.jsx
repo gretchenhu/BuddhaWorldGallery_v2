@@ -9,10 +9,10 @@ function PhotosGallery({ photos }) {
     function renderPhoto(photo) {
       return (
         <div className="col-4" key={photo._id}>
-          <br/>
+          <br />
           <img src={photo.image} width={250} height={250} alt={photo.name} />
           <div>{photo.name}</div>
-          <div>{photo.dynasty}</div>
+          <div>{photo.dynasty} Dynasty</div>
           <div>{photo.museum}</div>
           <Link
             to={`/buddha/id/${photo._id}`}
