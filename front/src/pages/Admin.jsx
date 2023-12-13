@@ -4,7 +4,6 @@ import Login from "../components/Login";
 import "./Admin.css";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
-import "./Admin.css";
 
 const AdminPage = () => {
   const { user } = useContext(UserContext);
