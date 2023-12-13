@@ -5,7 +5,7 @@ import "./Admin.css";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 
-const AdminLogin = () => {
+const AdminPage = () => {
   const { user } = useContext(UserContext); // Use user context
 
   const handleSuccessfulLogin = () => {
@@ -28,4 +28,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default AdminPage;
