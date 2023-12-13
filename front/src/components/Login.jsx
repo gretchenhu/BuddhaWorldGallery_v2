@@ -4,16 +4,18 @@ import { loginUser } from "../services/Authentication";
 import { UserContext } from "../context/UserContext"; 
 import { PropTypes } from "prop-types";
 
-const Login = ({ onClose, onSuccessfulLogin }) => {
+const Login = ({ onClose, onSuccessfulLogin, isAdminLogin = false }) => {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("")
   const { setUser } = useContext(UserContext); // Use setUser to update global user state
+  const [adminSecretKey, setAdminSecretKey] = useState("");
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const user = await loginUser(userName, password);
+      const user = await loginUser(userName, password, 
+        isAdminLogin ? adminSecretKey : null);
       console.log("Registration successful:", user);
       setUser(user); // Update the global user context
       if (onSuccessfulLogin) {
@@ -37,7 +39,7 @@ const Login = ({ onClose, onSuccessfulLogin }) => {
           <div>
             <label htmlFor="userName">Username:</label>
             <input
-              type="username"
+              type="text"
               id="username"
               value={userName}
               onChange={(e) => setUsername(e.target.value)}
@@ -47,15 +49,26 @@ const Login = ({ onClose, onSuccessfulLogin }) => {
           <div>
             <label htmlFor="password">Password:</label>
             <input
-              type="password"
+              type="text"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          
           {loginError && <div className="login-error">{loginError}</div>}
+          {isAdminLogin && (
+        <div>
+          <label htmlFor="adminSecretKey">Admin Secret Key:</label>
+          <input
+            type="text"
+            id="adminSecretKey"
+            value={adminSecretKey}
+            onChange={(e) => setAdminSecretKey(e.target.value)}
+            required={isAdminLogin}
+          />
+        </div>
+      )}
           <button type="submit">Login</button>
         </form>
       </div>
@@ -65,7 +78,8 @@ const Login = ({ onClose, onSuccessfulLogin }) => {
 
 Login.propTypes = {
   onClose: PropTypes.func, 
-  onSuccessfulLogin: PropTypes.func
+  onSuccessfulLogin: PropTypes.func,
+  isAdminLogin: PropTypes.bool
 };
 
 export default Login;

@@ -1,6 +1,6 @@
 # BuddhaWorldGallery_v2
 
-BuddhaWorldGallery_v2 was improved upon our previous project BuddhaWorldGallery. It is an online website for art lovers to be able to browse, filter, and upload buddha artifacts across the world. Users will be able to filter artifacts based on the dynasty they like, upload new artifacts to our database, and leave comments about their favorite artifacts.
+BuddhaWorldGallery_v2 was improved upon our previous project BuddhaWorldGallery. It is an online website for art lovers to be able to browse, filter, and upload buddhism artifacts across the world. Users will be able to filter artifacts based on the dynasty they like and leave comments about their favorite artifacts.
 
 ## Authors
 
@@ -113,8 +113,7 @@ mongoimport --db buddhaWorld --collection ListedArtifacts --file db/ListedArtifa
 ### Backend server
 
 ```
-    "bcrypt": "^5.1.1",
-    "bcryptjs": "^2.4.3",
+    "crypto": "^1.0.1",
     "bootstrap": "^5.3.2",
     "connect-mongo": "^5.1.0",
     "cookie-parser": "~1.4.4",
@@ -147,8 +146,10 @@ We chose to use Garamond and Lora for our website. Garamond is a classic and ele
 
 Color palette of this website was extracted from the inpiration of this picture:
 ![style](./style/Inspiration.png)
-This picture is also an artifacts from Longmen Grottoes, where our displayed artifacts are originally from. By utilizing a color palette inspired by an artifact from the Longmen Grottoes, we hope to weave a visual connection to the cultural and historical context of the artifacts displayed. This choice not only honors the original artistic vision but also subtly acknowledges the narrative of displacement these pieces have endured. The colors will provide a cohesive and aesthetically resonant backdrop that echoes the authenticity and emotional depth of the artifacts, reinforcing the website's purpose of showcasing the heritage and the ongoing story of these important works.
+
+This picture is also an artifact from Longmen Grottoes, where our displayed artifacts are originally from. By utilizing a color palette inspired by an artifact from the Longmen Grottoes, we hope to weave a visual connection to the cultural and historical context of the artifacts displayed. This choice not only honors the original artistic vision but also subtly acknowledges the narrative of displacement these pieces have endured. The colors will provide a cohesive and aesthetically resonant backdrop that echoes the authenticity and emotional depth of the artifacts, reinforcing the website's purpose of showcasing the heritage and the ongoing story of these important works.
 Our color palette in RGB color value:
+
 ![style](./style/Extracted_color_palette.png)
 
 ## License

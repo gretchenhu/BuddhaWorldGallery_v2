@@ -31,6 +31,7 @@ export default function Navbar() {
           <CustomLink to="/MemberLogin">Member Login</CustomLink> // Member Login link for guests
         )}
         <CustomLink to="/Register">Register</CustomLink>
+        <CustomLink to="/Admin">Admin</CustomLink>
         <CustomLink to="/AboutUs">About Us</CustomLink>
         <CustomLink to="/Contact">Contact</CustomLink>
       </ul>

@@ -5,6 +5,7 @@ import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/Contact";
 import Register from "./pages/Register";
 import MemberLogin from "./pages/MemberLogin";
+import Admin from "./pages/Admin";
 import ArtifactDetail from "./pages/ArtifactDetail";
 import { EditArtifact } from "./pages/EditArtifact";
 import CreateArtifact from "./pages/CreateArtifact";
@@ -27,6 +28,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/register" element={<Register />} />
             <Route path="/MemberLogin" element={<MemberLogin />} />
+            <Route path="/Admin" element={<Admin />} />
             <Route path="/aboutus" element={<AboutUs />} />
           </Routes>
         </Router>

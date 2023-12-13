@@ -13,72 +13,48 @@ import crypto from "crypto";
 
 import myDB from "./db/myMongoDB.js";
 import MongoStore from "connect-mongo";
-//import { config } from "dotenv";
 
 import indexRouter from "./routes/index.js";
 import authRouter from "./routes/auth.js";
-
-// config(); // Load environment variables from .env
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 let app = express();
 
-const myStrategy = new LocalStrategy(async function verify(
-  username,
-  password,
-  cb
-) {
+const myStrategy = new LocalStrategy(async function verify(username, password, done) {
+    try {
+        const user = await myDB.getUserByUsername(username);
+        console.log("Retrieved user in app.js:", user);
 
-  try {
-    const user = await myDB.getUserByUsername(username);
+        if (!user) {
+            // User not found
+            return done(null, false, { message: "Incorrect username or password" });
+        }
 
-    if (!user) {
-      // User not found
-      cb(null, false, { message: "Incorrect username or password" });
-      return false;
+        console.log("found user", user);
+        const salt = user.salt;
+
+        // Computes the hash password from the user input
+        crypto.pbkdf2(password, salt, 310000, 32, "sha256", function (err, hashedPassword) {
+            if (err) {
+                return done(err);
+            }
+            if (!crypto.timingSafeEqual(Buffer.from(user.hashedPassword, "hex"), hashedPassword)) {
+                console.log("passwords don't match");
+                // User found but password incorrect
+                return done(null, false, { message: "Incorrect username or password" });
+            }
+
+            console.log("passwords match");
+            // User found and authenticated
+            return done(null, user); // Pass the entire user object
+        });
+    } catch (err) {
+        return done(err);
     }
-
-    console.log("found user", user);
-    const salt = user.salt
-
-    // Computes the hash password from the user input
-    crypto.pbkdf2(
-      password,
-      salt,
-      310000,
-      32,
-      "sha256",
-      function (err, hashedPassword) {
-        if (err) {
-          return cb(err);
-        }
-        if (
-          !crypto.timingSafeEqual(
-            Buffer.from(user.hashedPassword, "hex"),
-            hashedPassword
-          )
-        ) {
-          console.log("passwords don't match");
-          // User found but password incorrect
-          cb(null, false, { message: "Incorrect username or password" });
-          return false;
-        }
-
-        console.log("passwords match");
-        // User found and authenticated
-        cb(
-          null, // error
-          { id: 1, username: username }, // user object
-          { message: "Hello" } // extra info
-        );
-      }
-    );
-  } catch (err) {
-    cb(err);
-  }
 });
+
 
 passport.use(myStrategy);
 
@@ -122,35 +98,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-/*
-passport.use(new LocalStrategy({ usernameField: "email" },
-  //userinput email, used to find user in db, and to match with password  
-  async (email, password, done) => {
-    try {
-      const user = await myDB.getUserByEmail(email);
-      console.log("R U here, email entered is", email);
-      console.log("Authenticating User is", user);
-      if (!user){
-        return done (null, false, { message: "Email does not exist."});
-    }
-    // should i call the getUserByEmail to return the user in db?
-      const isMatch = await bcrypt.compare(password, user.password);
-      console.log("Input password is", password, "and user password in our db is", user.password);
-      console.log("pw match?",isMatch);
-      if (!isMatch) {
-        return done(null, false, { message: "Incorrect password." });
-      }
-      return done (null, user);
-    } catch (error) {
-      console.error("Authentication error:", error);
-     return done(error);
-  }}
-));
-*/
-
 passport.serializeUser((user, cb) => { 
   process.nextTick(function () {
-    cb(null, { id: user._id, username: user.username }); 
+    return cb(null, user); 
   });
 });
 

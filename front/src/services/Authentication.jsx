@@ -1,30 +1,39 @@
+// Authentication logic
 export const API_URL = "http://localhost:3000"; 
 
 // Login Function
-export const loginUser = async (username, password) => {
+export const loginUser = async (username, password, adminSecretKey=null ) => {
+  const loginUrl = `${API_URL}/login`;
+  const body = { username, password };
+  
+  if (adminSecretKey) {
+    body.adminSecretKey = adminSecretKey;
+  }
+
   try {
-    const response = await fetch(`${API_URL}/login`, {
+    const response = await fetch(loginUrl, {
       method: "POST",
-      credentials: "include", // This is important for session cookies to be sent and received
+      credentials: "include", // Important for session cookies
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify(body), // Correctly pass the body object
     });
 
-    const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.message || "Login failed");
+      const errorText = await response.text();
+      throw new Error(errorText || "Login failed");
     }
-    return data; // The server should set a cookie upon successful login
+
+    const user = await response.json();
+    return user;
+
   } catch (error) {
-    if (error.name === "SyntaxError"){
-      throw new Error("Response from server was not in expected JSON format")
-    } else 
-    //console.error("Login failed from authen:", error);
+    console.error("Login error:", error);
     throw error;
   }
 };
+
 
 // Logout Function
 export const logoutUser = async () => {
