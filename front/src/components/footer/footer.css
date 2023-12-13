@@ -89,3 +89,23 @@
 .go-top:hover {
   background-color: rgb(172, 71, 47);
 }
+
+.icon {
+  background-color: rgb(224, 218, 205);
+  padding: 10px;
+  border-radius: 50%;
+  margin: 5px;
+  width: 40px; /* Adjust the width as needed */
+  height: 40px; /* Adjust the height as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+}
+
+.icon:hover {
+  background-color: rgb(172, 71, 47);
+  transform: scale(1.2);
+}

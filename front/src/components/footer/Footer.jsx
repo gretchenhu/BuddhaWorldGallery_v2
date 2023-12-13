@@ -1,11 +1,18 @@
-import "./footer.css";
+import React from "react";
 import { useEffect, useState } from "react";
+import "./footer.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faYoutube,
+  faInstagram,
+  faFacebook,
+} from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   const [showTopBtn, setShowTopBtn] = useState(false);
 
   useEffect(() => {
-    window.addEventListener(`scroll`, () => {
+    window.addEventListener("scroll", () => {
       if (window.scrollY > 400) {
         setShowTopBtn(true);
       } else {
@@ -28,15 +35,35 @@ const Footer = () => {
           <h4>Made with 🧡</h4>
         </div>
         <div className="footer-links_contact">
-          <h4>Socials</h4>
-          <p>
-            <a href="">YouTube</a>
+          {/* Use FontAwesomeIcon for YouTube icon without text */}
+          <p className="icon youtube-icon">
+            <a
+              href="https://www.youtube.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FontAwesomeIcon icon={faYoutube} />
+            </a>
           </p>
-          <p>
-            <a href="">Instagram</a>
+          {/* Use FontAwesomeIcon for Instagram icon without text */}
+          <p className="icon instagram-icon">
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FontAwesomeIcon icon={faInstagram} />
+            </a>
           </p>
-          <p>
-            <a href="">Facebook</a>
+          {/* Use FontAwesomeIcon for Facebook icon without text */}
+          <p className="icon facebook-icon">
+            <a
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FontAwesomeIcon icon={faFacebook} />
+            </a>
           </p>
         </div>
         <div className="footer-links_contact">
