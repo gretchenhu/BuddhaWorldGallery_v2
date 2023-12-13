@@ -1,3 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Garamond", sans-serif;
+  background-color: rgb(224, 218, 205);
+}
+
 .about-container {
   display: flex;
   flex-direction: column;
@@ -10,14 +19,26 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  background-color: rgb(53, 42, 28);
+  color: rgb(224, 218, 205);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px; /* Adjust the maximum width as needed */
+  margin: 0 auto; /* Center the text box */
 }
 
 .about-section h2 {
-  color: rgb(53, 42, 28);
+  color: rgb(172, 71, 47);
+  font-family: "Lora", serif;
   font-size: 2em;
   margin-bottom: 10px;
 }
 
 .about-section p {
   font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.footer {
+  margin-top: 50px;
 }

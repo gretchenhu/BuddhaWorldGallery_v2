@@ -141,7 +141,9 @@ mongoimport --db buddhaWorld --collection ListedArtifacts --file db/ListedArtifa
     "react-router-dom": "^6.18.0"
 ```
 
-## Style choices and Color palettes
+## Style Choices and Color Palettes
+
+We chose to use Garamond and Lora for our website. Garamond is a classic and elegant serif font that has been widely used in the context of art and culture, and Lora is a well-balanced serif font that exudes elegance and sophistication, well-suited for our Buddha Gallery website.
 
 Color palette of this website was extracted from the inpiration of this picture:
 ![style](./style/Inspiration.png)
