@@ -1,17 +1,23 @@
 /* Search bar styling */
 
-div {
+/* Styling for the container div */
+.search-container {
   margin-bottom: 20px;
+  margin-left: 180px;
+  margin-right: 180px;
 }
 
+/* Styling for the dropdown */
 .form-control {
   width: auto; /* Adjust this value to set the desired width */
   align-items: center;
   flex-grow: 1;
   padding: 10px; /* Adds padding inside the search input */
   margin: 0; /* Adds automatic margins on the sides to center the search bar */
+  font-family: "Garamond", serif;
 }
 
+/* Styling for the label */
 .form-label {
   color: rgb(103, 77, 55);
   font-weight: bold;
@@ -19,4 +25,6 @@ div {
   gap: 10px;
   margin: 30px 0;
   display: flex;
+  font-family: "Garamond", serif;
+  font-size: larger;
 }

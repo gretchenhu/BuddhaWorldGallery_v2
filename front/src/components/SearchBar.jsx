@@ -1,27 +1,46 @@
 import PropTypes from "prop-types";
 import "./searchBar.css";
 
+const dynasties = [
+  "Tang",
+  "Sui",
+  "Wei",
+  "Shang",
+  "Han",
+  "Yuan",
+  "Zhou",
+  "Xia",
+  "Song",
+  "Jin",
+];
+
 export default function SearchBar({ query, setQuery }) {
-  function onInput(evt) {
+  function onSelectChange(evt) {
     setQuery(evt.target.value);
   }
 
   return (
-    <div>
+    <div className="search-container">
       <label className="form-label">
-      <div></div>
-        Search by Dynasty (case sensitive):{" "}
-        <input
+        Filter by Dynasty:{" "}
+        <select
           id="search"
           className="form-control"
-          type="search"
           value={query}
-          onInput={onInput}
-        ></input>
+          onChange={onSelectChange}
+        >
+          <option value="">All Dynasties</option>
+          {dynasties.map((dynasty, index) => (
+            <option key={index} value={dynasty}>
+              {dynasty}
+            </option>
+          ))}
+        </select>
       </label>
     </div>
   );
 }
+
 SearchBar.propTypes = {
   query: PropTypes.string.isRequired,
   setQuery: PropTypes.func.isRequired,
