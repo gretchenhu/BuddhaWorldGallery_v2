@@ -1,8 +1,8 @@
 /* Gallery and photo item styles */
 .background {
-  background-color: rgb(224,218,205);
-
+  background-color: rgb(224, 218, 205);
 }
+
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -29,15 +29,15 @@
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  width: 100%; /* Responsive image width */
-  height: auto; /* Maintain aspect ratio */
   margin-bottom: 10px;
+  object-fit: cover;
 }
 
 /* Photo details styling */
 .col-4 div {
-  color: rgb(103,77,55); /* Light rose gold color for text */
+  color: rgb(103, 77, 55); /* Light rose gold color for text */
   font-size: 16px;
+  font-family: "Lora", serif; /* Lora font choice */
 }
 
 /* Link styling */
@@ -51,6 +51,15 @@
 }
 
 /* Button styling */
-.btn.btn-primary.btn-lg{
-  color:whitesmoke;
+.btn.btn-primary.btn-lg {
+  color: whitesmoke;
+  font-size: 14px;
+  background-color: rgb(53, 42, 28); /* Dark brown button color */
+  border-color: rgb(53, 42, 28); /* Dark brown button border color */
+  font-family: "Lora", serif;
+}
+
+.btn.btn-primary.btn-lg:hover {
+  background-color: rgb(103, 77, 55); /* Lighter brown on hover */
+  border-color: rgb(103, 77, 55); /* Lighter brown border on hover */
 }
