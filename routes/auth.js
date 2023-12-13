@@ -1,67 +1,25 @@
-import { Router } from 'express';
-import passport from 'passport';
-import { MongoClient } from 'mongodb';
-import bcrypt from 'bcrypt';
+import express from "express";
+import passport from "passport";
+import crypto from "crypto";
+import myDB from "../db/myMongoDB.js";
 
-const router = Router();
-const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017'; // Use the same URI as in myMongoDB.js
-const client = new MongoClient(uri);
+const router = express.Router();
 
-// Use connect method to connect to the server
-let db;
-client.connect().then(client => {
-  db = client.db('BuddhaWorld');
-}).catch(error => {
-  console.error('Database connection error:', error);
-  process.exit(1);
-});
+router.post(
+  "/login/password", //deleted api/
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+  })
+);
 
-// Login route
-router.post('/login', passport.authenticate('local'), (req, res) => {
-  res.json({ message: 'Logged in successfully', user: req.user });
-});
-
-// Logout route
-router.post('/logout', (req, res) => {
-  req.logout(function(err) {
-    if (err) { 
-      return next(err); 
+router.post("/logout", function (req, res, next) { // deleted api/
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
     }
-    res.clearCookie('connect.sid'); // Using Defalt cookie name
-    res.json({ message: 'Logged out successfully' });
+    res.status(200).json({ username: null, msg: "Logged out", ok: true });
   });
-});
-
-
-
-// Registration route
-router.post('/register', async (req, res) => {
-  console.log('Received request body:', req.body);
-  try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ message: 'Email and password are required.' });
-    }
-
-    const collection = db.collection('RegisteredUsers');
-
-    // Check if email already exists
-    const existingUser = await collection.findOne({ email: email });
-    if (existingUser) {
-      return res.status(409).json({ message: 'Email already exists.' });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = {
-      email: email,
-      password: hashedPassword
-    };
-
-    await collection.insertOne(newUser);
-    res.status(201).json({ message: 'Registered successfully' });
-  } catch (error) {
-    res.status(500).json({ message: 'Error registering new user', error: error.message });
-  }
 });
 
 // Status check route
@@ -71,6 +29,44 @@ router.get('/check-status', (req, res) => {
   } else {
     res.json({ message: 'User is not authenticated' });
   }
+});
+
+router.get("/getUser", function (req, res) {
+  console.log("getUser", req.user);
+  res.status(200).json({ username: req.user?.username });
+});
+
+router.post("/register", async function (req, res, next) {
+  console.log("**** register", req.body);
+
+  const user = await myDB.getUserByUsername(req.body.username);
+  if (user) {
+    return res.status(400).json({ ok: false, msg: "Username already exists" });
+  }
+
+  var salt = crypto.randomBytes(16);
+  crypto.pbkdf2(
+    req.body.password,
+    salt,
+    310000,
+    32,
+    "sha256",
+    async function (err, hashedPassword) {
+      if (err) {
+        return next(err);
+      }
+
+      const insertResponse = await myDB.insertUser({
+        username: req.body.username,
+        hashedPassword: hashedPassword.toString("hex"),
+        salt: salt.toString("hex"),
+      });
+
+      console.log("inserted new user", insertResponse);
+
+      res.status(200).json({ ok: true, msg: "Signed up " });
+    }
+  );
 });
 
 export default router;

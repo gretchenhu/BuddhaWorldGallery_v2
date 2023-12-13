@@ -38,7 +38,7 @@ export const logoutUser = async () => {
     }
     // The server should clear the session cookie upon logout
   } catch (error) {
-    console.error("Logout failed:", error);
+    //console.error("Logout failed:", error);
   }
 };
 
@@ -66,7 +66,7 @@ export const registerUser = async (email, password) => {
 // Check Authentication Status Function
 export const checkAuthStatus = async () => {
   try {
-    const response = await fetch(`${API_URL}/check-status`, {
+    const response = await fetch(`${API_URL}/check-status`, { // 404
       method: "GET",
       credentials: "include", // Necessary for sessions
     });
