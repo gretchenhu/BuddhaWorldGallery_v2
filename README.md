@@ -8,11 +8,11 @@ Huiqin Hu & Xiaolin Liu
 
 ## Project links
 
-Deployed Site: 
+Deployed Site:
 
 Walkthrough Video:
 
-Slides: 
+Slides:
 
 Design Document can be found [here](./design-document.md)
 
@@ -70,7 +70,8 @@ Contact
 
 To set up BuddhaWorldGallery2.0, you will need the following:
 Clone the repository, then enter into root folder and run below commands to install dependencies:
-``` 
+
+```
 npm install nodemon
 npm install express-session
 npm install passport
@@ -80,16 +81,20 @@ npm install connect-mongo
 ```
 
 Install frontend dependencies:
+
 ```
 cd front
-npm install @vitejs/plugin-react 
+npm install @vitejs/plugin-react
 ```
+
 and in the same front folder to run frontend server:
+
 ```
 npm run dev
 ```
 
 To run backend server from the root folder:
+
 ```
 npm run start
 ```
@@ -137,16 +142,15 @@ mongoimport --db buddhaWorld --collection ListedArtifacts --file db/ListedArtifa
 ```
 
 ## Style choices and Color palettes
+
 Color palette of this website was extracted from the inpiration of this picture:
-![style](./style/Inspiration.png]
+![style](./style/Inspiration.png)
 This picture is also an artifacts from Longmen Grottoes, where our displayed artifacts are originally from. By utilizing a color palette inspired by an artifact from the Longmen Grottoes, we hope to weave a visual connection to the cultural and historical context of the artifacts displayed. This choice not only honors the original artistic vision but also subtly acknowledges the narrative of displacement these pieces have endured. The colors will provide a cohesive and aesthetically resonant backdrop that echoes the authenticity and emotional depth of the artifacts, reinforcing the website's purpose of showcasing the heritage and the ongoing story of these important works.
 Our color palette in RGB color value:
-![style](./style/Extracted_color_palette.png]
-
+![style](./style/Extracted_color_palette.png)
 
 ## License
 
-This project is licensed under the MIT License.
-=======
-# BuddhaWorldGallery_v2
+# This project is licensed under the MIT License.
 
+# BuddhaWorldGallery_v2
