@@ -1,6 +1,6 @@
 # BuddhaWorldGallery_v2
 
-BuddhaWorldGallery_v2 was improved upon our previous project BuddhaWorldGallery. It is an online website for art lovers to be able to browse, filter, and upload buddhism artifacts across the world. Users will be able to filter artifacts based on the dynasty they like and leave comments about their favorite artifacts.
+BuddhaWorldGallery_v2 was improved upon our previous project BuddhaWorldGallery. We conducted 6 user interviews and gathered 70+ feedbacks. Among which, we adapted 20 feedbacks and turned it into a totally different website. The website It is an online website for art lovers to be able to browse, filter, and upload buddhism artifacts across the world. Users will be able to filter artifacts based on the dynasty they like and leave comments about their favorite artifacts.
 
 ## Authors
 
@@ -10,9 +10,9 @@ Huiqin Hu & Xiaolin Liu
 
 Deployed Site:
 
-Walkthrough Video:
+Walkthrough Video: https://youtu.be/aqTxBpgMDxQ
 
-Slides:
+Slides: https://docs.google.com/presentation/d/1BLh-pEzHOWQlM3UfBOyLuR4BTXSFiQuxRURX0yo7R4U/edit?usp=sharing
 
 Design Document can be found [here](./design-document.md)
 
@@ -22,7 +22,15 @@ Class Link: https://johnguerra.co/classes/webDevelopment_fall_2023/
 
 Some data in this project are synthetic fictitious data and for educational and demonstration purposes only
 
-## Project Objective
+## Project v2 Objective
+
+1. Conduct user interviews and gather feedback
+
+2. Decide which feedbacks to adapt to - prioritize, priotizie, prioritize!
+
+3. Implement user authentication and access control
+
+## Project v1 Objective
 
 1. Create an online gallery to showcase important buddha artifacts across the world
 
@@ -31,6 +39,18 @@ Some data in this project are synthetic fictitious data and for educational and 
 3. Allow art lovers across the world to curate this database together - users can “read” the current database through our online gallery, they can also create, update and delete data from our dataset, helping us curate this dataset
 
 4. Allow art lovers across the world to comment below their favorite artifacts - comments could be created, read, updated and deleted
+
+## Font Choices and Color Palettes
+
+We chose to use Garamond and Lora for the font of our website. Garamond is a classic and elegant serif font that has been widely used in the context of art and culture, and Lora is a well-balanced serif font that exudes elegance and sophistication, well-suited for our Buddha Gallery website.
+
+Color palette of this website was extracted from the inpiration of this picture:
+![style](./style/Inspiration.png)
+
+This picture is also an artifact from Longmen Grottoes, where our displayed artifacts are originally from. By utilizing a color palette inspired by an artifact from the Longmen Grottoes, we hope to weave a visual connection to the cultural and historical context of the artifacts displayed. This choice not only honors the original artistic vision but also subtly acknowledges the narrative of displacement these pieces have endured. The colors will provide a cohesive and aesthetically resonant backdrop that echoes the authenticity and emotional depth of the artifacts, reinforcing the website's purpose of showcasing the heritage and the ongoing story of these important works.
+Our color palette in RGB color value:
+
+![style](./style/Extracted_color_palette.png)
 
 ## Screenshots
 
@@ -139,18 +159,6 @@ mongoimport --db buddhaWorld --collection ListedArtifacts --file db/ListedArtifa
     "react-hook-form": "^7.48.2",
     "react-router-dom": "^6.18.0"
 ```
-
-## Style Choices and Color Palettes
-
-We chose to use Garamond and Lora for our website. Garamond is a classic and elegant serif font that has been widely used in the context of art and culture, and Lora is a well-balanced serif font that exudes elegance and sophistication, well-suited for our Buddha Gallery website.
-
-Color palette of this website was extracted from the inpiration of this picture:
-![style](./style/Inspiration.png)
-
-This picture is also an artifact from Longmen Grottoes, where our displayed artifacts are originally from. By utilizing a color palette inspired by an artifact from the Longmen Grottoes, we hope to weave a visual connection to the cultural and historical context of the artifacts displayed. This choice not only honors the original artistic vision but also subtly acknowledges the narrative of displacement these pieces have endured. The colors will provide a cohesive and aesthetically resonant backdrop that echoes the authenticity and emotional depth of the artifacts, reinforcing the website's purpose of showcasing the heritage and the ongoing story of these important works.
-Our color palette in RGB color value:
-
-![style](./style/Extracted_color_palette.png)
 
 ## License
 
