@@ -1,7 +1,7 @@
 export const API_URL = "http://localhost:3000"; 
 
 // Login Function line 6
-export const loginUser = async (email, password) => {
+export const loginUser = async (username, password) => {
   try {
     const response = await fetch(`${API_URL}/login`, {
       method: "POST",
@@ -9,7 +9,7 @@ export const loginUser = async (email, password) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, password }),
     });
 
     const data = await response.json();
@@ -43,7 +43,7 @@ export const logoutUser = async () => {
 };
 
 // Registration Function
-export const registerUser = async (email, password) => {
+export const registerUser = async (username, password) => {
   try {
     const response = await fetch(`${API_URL}/register`, {
       method: "POST",
@@ -51,7 +51,7 @@ export const registerUser = async (email, password) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({email, password}),
+      body: JSON.stringify({username, password}),
     });
     if (!response.ok) {
       throw new Error("Registration failed");
