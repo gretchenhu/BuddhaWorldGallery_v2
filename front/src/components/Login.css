@@ -1,0 +1,7 @@
+.login-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  background: rgb(224, 218, 205);
+}
