@@ -86,13 +86,12 @@ function MyMongoDB() {
     }
   };
 
-  myDB.createComment = async (comment, username) => {
+  myDB.createComment = async (comment) => {
     const { client, db } = connect();
     const commentsCollection = db.collection("Comments");
 
     try {
-      const commentWithUser = { ...comment, username }; // Add the username to the comment object
-      const result = await commentsCollection.insertOne(commentWithUser);
+      const result = await commentsCollection.insertOne(comment);
       console.log(result);
       return result;
     } finally {
@@ -147,17 +146,55 @@ function MyMongoDB() {
     }
   };
 
-  myDB.insertUser = async function (user, adminSecretKey = null) {
+  /*
+  myDB.createUser = async (newUser) => {
     const { client, db } = connect();
+    const usersCollection = db.collection("RegisteredUsers");
   
     try {
+      const hashedPassword = await bcrypt.hash(newUser.password, 10);
+      const userWithHashedPassword = { ...newUser, password: hashedPassword };
+      const result = await usersCollection.insertOne(userWithHashedPassword);
+      console.log(result);
+      return result;
+    } finally {
+      console.log("db closing connection");
+      client.close();
+    }
+  };
+
+  // Give me a way to 
+  myDB.getUserByEmail = async (email) => {
+    const { client, db } = connect();
+    const usersCollection = db.collection("RegisteredUsers");
+
+    try {
+      const filter = { email: email };
+      const user = await usersCollection.findOne(filter);
+      console.log("Finding user with email", user);
+      return user;
+      //console.log(email);
+      //console.log(await usersCollection.find({}).toArray(filter));
+    } finally {
+      console.log("db closing connection");
+      client.close();
+    }
+  }; R
+  */
+
+  myDB.insertUser = async function (user) {
+    const { client, db } = connect();
+
+    console.log("insert User", user.username);
+    try {
       const response = await db.collection("RegisteredUsers").insertOne(user);
+
       return response;
     } finally {
       await client.close();
     }
   };
-  
+
   myDB.getUserByUsername = async function (username) {
     const { client, db } = connect();
 
@@ -171,6 +208,12 @@ function MyMongoDB() {
   return myDB;
 }
 
+/*  myDB.closeConnection = async () => {
+    if (client.isConnected()) {
+      await client.close();
+    }
+  };
+*/
 
 const myDB = MyMongoDB();
 

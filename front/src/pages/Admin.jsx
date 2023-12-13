@@ -3,8 +3,8 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import Login from "../components/Login";
 import CreateArtifact from "./CreateArtifact";
-import EditArtifact from "./EditArtifact";
-import DeleteArtifact from "./DeleteArtifact";
+//import EditArtifact from "./EditArtifact";
+//import DeleteArtifact from "./DeleteArtifact";
 
 const AdminPage = () => {
     const { user, setUser } = useContext(UserContext);
@@ -36,8 +36,6 @@ const AdminPage = () => {
             <h1>Admin Dashboard</h1>
             {/* Admin functionalities */}
             <CreateArtifact />
-            <EditArtifact />
-            <DeleteArtifact />
         </div>
     );
 };

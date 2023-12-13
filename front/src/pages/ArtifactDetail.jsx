@@ -4,7 +4,7 @@ import DeleteArtifact from "./DeleteArtifact";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import Login from "../components/Login";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../context/UserContext"; // Update the path as necessary
 import "./artifactDetail.css";
 
 export default function ArtifactDetail() {
@@ -18,26 +18,27 @@ export default function ArtifactDetail() {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
+    // Fetch artifact and comments data
     const fetchArtifactAndComments = async () => {
       try {
+        // Fetch artifact data
         const artifactResponse = await fetch(`/api/buddha/id/${artifactId}`);
         if (artifactResponse.ok) {
           const artifactData = await artifactResponse.json();
           setArtifact(artifactData);
+        } else {
+          console.error("Artifact not found");
         }
 
-        const commentsResponse = await fetch(`/api/buddha/id/${artifactId}/comments`);
+        // Fetch comments data
+        const commentsResponse = await fetch(
+          `/api/buddha/id/${artifactId}/comments`
+        );
         if (commentsResponse.ok) {
           const commentsData = await commentsResponse.json();
-          if (Array.isArray(commentsData)){
-          console.log("Comments Data:", commentsData);
           setComments(commentsData);
-        } else {
-          console.error("Expected an array for comments, received:", commentsData);
-          }
         }
-        }
-       catch (error) {
+      } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
@@ -45,39 +46,58 @@ export default function ArtifactDetail() {
     fetchArtifactAndComments();
   }, [artifactId]);
 
+  // Handlers for login modal
   const handleLoginClose = () => {
     setShowLogin(false);
   };
 
+  // Handlers for comment submission
   const submitComment = async (e) => {
     e.preventDefault();
     if (!user) {
       setShowLogin(true);
       return;
     }
-    
-    try {
-      const response = await fetch(`/api/buddha/id/${artifactId}/comments`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text: newComment, artifactId: artifactId }),
-      });
+    if (!artifact) {
+      return <div>Loading...</div>;
+    }
+    if (newComment && artifactId) {
+      try {
+        const response = await fetch(`/api/buddha/id/${artifactId}/comments`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text: newComment, artifactId: artifactId }),
+        });
 
-      if (response.ok) {
-        const updatedData = await response.json();
-        setComments(updatedData);
-        setNewComment("");
+        if (response.ok) {
+          const updatedResponse = await fetch(
+            `/api/buddha/id/${artifactId}/comments`
+          );
+          console.log(updatedResponse);
+          if (updatedResponse.ok) {
+            const updatedData = await updatedResponse.json();
+            console.log(updatedData);
+            setComments(updatedData);
+          }
+
+          setNewComment("");
+        }
+      } catch (error) {
+        console.error("Error:", error);
       }
-    } catch (error) {
-      console.error("Error:", error);
     }
   };
 
   const deleteComment = async (commentId) => {
-    if (window.confirm("Are you sure you want to delete this comment?")) {
-      const response = await fetch(`/api/buddha/comments/${commentId}`, { method: "DELETE" });
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this comment?"
+    );
+    if (confirmed) {
+      const response = await fetch(`/api/buddha/comments/${commentId}`, {
+        method: "DELETE",
+      });
 
       if (response.ok) {
         setComments(comments.filter((comment) => comment._id !== commentId));
@@ -104,9 +124,10 @@ export default function ArtifactDetail() {
         },
         body: JSON.stringify({ text: editedCommentText }),
       });
-
       if (response.ok) {
-        const updatedResponse = await fetch(`/api/buddha/id/${artifactId}/comments`);
+        const updatedResponse = await fetch(
+          `/api/buddha/id/${artifactId}/comments`
+        );
         if (updatedResponse.ok) {
           const updatedData = await updatedResponse.json();
           setComments(updatedData);
@@ -126,7 +147,11 @@ export default function ArtifactDetail() {
       {artifact ? (
         <div className="row">
           <div className="col-md-6">
-            <img src={artifact.image} alt={artifact.name} className="card-img-top" />
+            <img
+              src={artifact.image}
+              alt={artifact.name}
+              className="card-img-top"
+            />
           </div>
           <div className="col-md-6">
             <div className="card-body">
@@ -134,14 +159,15 @@ export default function ArtifactDetail() {
               <p className="card-text">{artifact.dynasty}</p>
               <p className="card-text">{artifact.museum}</p>
 
-              {user && user.role === "admin" && (
-                <div className="card-btn">
-                  <Link to={`/buddha/edit/id/${artifactId}`} className="btn btn-secondary mx-2">
-                    Edit
-                  </Link>
-                  <DeleteArtifact artifactId={artifactId} />
-                </div>
-              )}
+              <div className="card-btn">
+                <Link
+                  to={`/buddha/edit/id/${artifactId}`}
+                  className="btn btn-secondary mx-2"
+                >
+                  Edit
+                </Link>
+                <DeleteArtifact artifactId={artifactId} />
+              </div>
             </div>
 
             <section className="comment-section">
@@ -157,23 +183,29 @@ export default function ArtifactDetail() {
                   <button type="submit">Submit Comment</button>
                 </form>
               </div>
-
               {comments.map((comment) => (
                 <div key={comment._id}>
-                  <p>{comment.username}: {comment.text}</p>
-              
-                  {user && user.role === "admin" && (
-                    editingCommentId === comment._id ? (
-                      <>
-                        <button onClick={() => updateComment(comment._id)}>Save Changes</button>
-                        <button onClick={cancelEditingComment}>Cancel</button>
-                      </>
-                    ) : (
-                      <>
-                        <button onClick={() => deleteComment(comment._id)}>Delete Comment</button>
-                        <button onClick={() => startEditingComment(comment._id, comment.text)}>Edit Comment</button>
-                      </>
-                    )
+                  {editingCommentId === comment._id ? (
+                    <>
+                      <button onClick={() => updateComment(comment._id)}>
+                        Update Comment
+                      </button>
+                      <button onClick={cancelEditingComment}>Cancel</button>
+                    </>
+                  ) : (
+                    <>
+                      <p>{comment.text}</p>
+                      <button onClick={() => deleteComment(comment._id)}>
+                        Delete Comment
+                      </button>
+                      <button
+                        onClick={() =>
+                          startEditingComment(comment._id, comment.text)
+                        }
+                      >
+                        Edit Comment
+                      </button>
+                    </>
                   )}
                 </div>
               ))}
