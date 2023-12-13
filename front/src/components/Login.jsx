@@ -1,16 +1,14 @@
 // Login.jsx
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom"
 import { loginUser } from "../services/Authentication"; 
 import { UserContext } from "../context/UserContext"; 
 import { PropTypes } from "prop-types";
 
-const Login = ({ onClose }) => {
+const Login = ({ onClose, onSuccessfulLogin }) => {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("")
   const { setUser } = useContext(UserContext); // Use setUser to update global user state
-  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -18,8 +16,9 @@ const Login = ({ onClose }) => {
       const user = await loginUser(userName, password);
       console.log("Registration successful:", user);
       setUser(user); // Update the global user context
-      navigate("/"); // GalleryPg was rendered as root path
-      if (onClose) {
+      if (onSuccessfulLogin) {
+        onSuccessfulLogin(); // call the callback
+      } else if (onClose) {
         onClose(); // Close the login modal
       }
     } catch (error) {
@@ -65,8 +64,8 @@ const Login = ({ onClose }) => {
 };
 
 Login.propTypes = {
-  onClose: PropTypes.func 
-  // Not required, used in standalone MemberLogin page and modal in ArtifactDetails
+  onClose: PropTypes.func, 
+  onSuccessfulLogin: PropTypes.func
 };
 
 export default Login;
