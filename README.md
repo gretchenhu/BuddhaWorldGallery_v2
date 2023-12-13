@@ -158,6 +158,10 @@ mongoimport --db buddhaWorld --collection ListedArtifacts --file db/ListedArtifa
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
     "react-router-dom": "^6.18.0"
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
 ```
 
 ## License
