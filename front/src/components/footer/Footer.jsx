@@ -31,7 +31,7 @@ const Footer = () => {
     <div className="footer section__padding">
       <div className="footer-links">
         <div className="footer-links_contact">
-          <h4>Made with 🧡</h4>
+          <p>Made with 🧡</p>
         </div>
         <div className="footer-links_contact">
           {/* Use FontAwesomeIcon for YouTube icon without text */}
@@ -40,6 +40,7 @@ const Footer = () => {
               href="https://www.youtube.com/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="check out our YouTube"
             >
               <FontAwesomeIcon icon={faYoutube} />
             </a>
@@ -50,6 +51,7 @@ const Footer = () => {
               href="https://www.instagram.com/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="check out our Instagram"
             >
               <FontAwesomeIcon icon={faInstagram} />
             </a>
@@ -60,13 +62,14 @@ const Footer = () => {
               href="https://www.facebook.com/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="check out our Facebook"
             >
               <FontAwesomeIcon icon={faFacebook} />
             </a>
           </p>
         </div>
         <div className="footer-links_contact">
-          <h4>Get in touch ⬇</h4>
+          <p>Get in touch ⬇</p>
           <p>600 California St, San Francisco, California</p>
           <p>866-866-7866</p>
           <p>info@buddhaworldgallery.com</p>

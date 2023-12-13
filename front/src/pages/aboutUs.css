@@ -20,8 +20,8 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: rgb(53, 42, 28);
-  color: rgb(224, 218, 205);
+  background-color: rgb(224, 218, 205);
+  color: rgb(53, 42, 28);
   padding: 20px;
   border-radius: 10px;
   max-width: 600px; /* Adjust the maximum width as needed */
