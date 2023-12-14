@@ -57,6 +57,29 @@ Our color palette in RGB color value:
 The website passed lighthouse accessibility test and received a 100 score.
 ![screenshots](./screenshots/lighthouse.jpg)
 
+## Changes Implemented based on user feedbacks
+
+1. add user authentication: implement Passport authentication of member and admin; admin has full access of all crud operations and is given a secret key to register, which is also required for Admin login
+2. implemented user privilege control / access managemenet throughout the website (e.g. Upload Artifact can only be seen and accessed by Admins)
+3. change color contrast on navbar and footer
+4. consistent image size for all images on gallery pages
+5. changed search bar into dropdown list for dynasty search
+6. add alignment on footer
+7. fix the bug - when you right click on about us on the navbar, and choose open new tab, you get a GET error
+8. add logo on navbar
+9. add "Dynasty" after all dynasties: Tang -> Tang Dynasty
+10. change the name of one of the two delete buttons on the detail page
+11. move comment section display under the textbox
+12. enable user to enter detail page by clicking on the image
+13. add hierarchy on detail page
+14. changed hyperlink on footer section into icons, added hover effect on it
+15. make sure footer use consistent font
+16. modify the size and style of the buttons and comment section
+17. smaller image size on detail page
+18. shorten about us page + change layout. right now it's hard to read
+19. pick our color palette and font choices and consistently apply it to all pages
+20. Scored 100% on Lighthouse Accessibility
+
 ## Screenshots
 
 Main page: gallery
