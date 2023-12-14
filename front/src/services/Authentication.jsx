@@ -1,11 +1,11 @@
 // Authentication logic
-export const API_URL = "http://localhost:3000"; 
+export const API_URL = "";
 
 // Login Function
-export const loginUser = async (username, password, adminSecretKey=null ) => {
+export const loginUser = async (username, password, adminSecretKey = null) => {
   const loginUrl = `${API_URL}/login`;
   const body = { username, password };
-  
+
   if (adminSecretKey) {
     body.adminSecretKey = adminSecretKey;
   }
@@ -15,7 +15,7 @@ export const loginUser = async (username, password, adminSecretKey=null ) => {
       method: "POST",
       credentials: "include", // Important for session cookies
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(body), // Correctly pass the body object
     });
@@ -27,13 +27,11 @@ export const loginUser = async (username, password, adminSecretKey=null ) => {
 
     const user = await response.json();
     return user;
-
   } catch (error) {
     console.error("Login error:", error);
     throw error;
   }
 };
-
 
 // Logout Function
 export const logoutUser = async () => {
@@ -58,9 +56,9 @@ export const registerUser = async (username, password) => {
       method: "POST",
       credentials: "include",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({username, password}),
+      body: JSON.stringify({ username, password }),
     });
     if (!response.ok) {
       throw new Error("Registration failed");
@@ -75,7 +73,8 @@ export const registerUser = async (username, password) => {
 // Check Authentication Status Function
 export const checkAuthStatus = async () => {
   try {
-    const response = await fetch(`${API_URL}/check-status`, { // 404
+    const response = await fetch(`${API_URL}/check-status`, {
+      // 404
       method: "GET",
       credentials: "include", // Necessary for sessions
     });
