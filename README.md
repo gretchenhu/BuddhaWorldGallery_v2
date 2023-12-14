@@ -8,7 +8,7 @@ Huiqin Hu & Xiaolin Liu
 
 ## Project links
 
-Deployed Site:
+Deployed Site: https://buddhaworldgalleryv2.onrender.com/
 
 Walkthrough Video: https://youtu.be/aqTxBpgMDxQ
 
